@@ -1,6 +1,6 @@
 {
   "name": "@loanlink/cget",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Robust streaming parallel download manager with filesystem cache",
   "author": "Loanlink",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "main": "dist/cget.js",
   "types": "dist/cget.d.ts",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build",
