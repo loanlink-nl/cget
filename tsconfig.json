@@ -2,9 +2,9 @@
   "compilerOptions": {
     "outDir": "./dist",
 
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2021", // Node 16
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "es2022",
 
     "declaration": true,
     "declarationMap": true,
