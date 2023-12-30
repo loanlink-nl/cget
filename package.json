@@ -24,7 +24,7 @@
     "prepublishOnly": "npm i --package-lock-only && npm run test",
     "postpublish": "TAG=\"v$(jq -r .version package.json)\" && git commit -am \"Bumped to version $TAG\" && git tag -a $TAG -m \"Published version $TAG\" && git push origin $TAG",
     "test": "npm-run-all test:*",
-    "test:jest": "jest",
+    "test:jest": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:clean": "rimraf cache/",
     "test:original": "npm-run-all test:original:*",
     "test:original:build": "tsc -p test",
@@ -70,6 +70,7 @@
         }
       ]
     },
+    "extensionsToTreatAsEsm": [".ts"],
     "testRegex": "(/src/.*\\.test\\.(ts|tsx|js))$",
     "testRunner": "jasmine2"
   }

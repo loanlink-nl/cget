@@ -1,5 +1,5 @@
-import { FetchOptions, Cache, CacheResult } from "./Cache";
-const path = require("path");
+import { FetchOptions, Cache, CacheResult } from "./Cache.js";
+import path from "path";
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10 * 1000;
 
