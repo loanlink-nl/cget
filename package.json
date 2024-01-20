@@ -6,12 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Capital-Management-Group/cget.git"
+    "url": "git+https://github.com/loanlink-nl/cget.git"
   },
   "bugs": {
-    "url": "https://github.com/Capital-Management-Group/cget/issues"
+    "url": "https://github.com/loanlink-nl/cget/issues"
   },
-  "homepage": "https://github.com/Capital-Management-Group/cget#readme",
+  "homepage": "https://github.com/loanlink-nl/cget#readme",
   "main": "dist/cget.js",
   "types": "dist/cget.d.ts",
   "engines": {
