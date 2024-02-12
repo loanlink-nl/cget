@@ -27,8 +27,8 @@ export const fsa = {
   ) => Promise<{}>
 };
 
-var againSymbol = {};
-var again = () => againSymbol;
+const againSymbol = {};
+const again = () => againSymbol;
 
 /** Promise while loop. */
 
@@ -45,9 +45,9 @@ export function repeat<T>(
  * rename to file to <component>/<indexName>. */
 
 export function mkdirp(pathName: string, indexName: string) {
-  var partList = path.resolve(pathName).split(path.sep);
-  var prefixList = partList.slice(0);
-  var pathPrefix: string;
+  const partList = path.resolve(pathName).split(path.sep);
+  const prefixList = partList.slice(0);
+  let pathPrefix: string;
 
   // Remove path components until an existing directory is found.
 
@@ -63,7 +63,7 @@ export function mkdirp(pathName: string, indexName: string) {
           // Trying to convert a file into a directory.
           // Rename the file to indexName and move it into the new directory.
 
-          var tempPath = pathPrefix + "." + makeTempSuffix(6);
+          const tempPath = pathPrefix + "." + makeTempSuffix(6);
 
           return util
             .promisify(() => fsa.rename(pathPrefix, tempPath))()
@@ -88,7 +88,7 @@ export function mkdirp(pathName: string, indexName: string) {
     partList.slice(prefixList.length).reduce(
       // Create path components that didn't exist yet.
       async (pathPrefix: any, part: string) => {
-        var pathNew = pathPrefix + path.sep + part;
+        const pathNew = pathPrefix + path.sep + part;
 
         return await util
           .promisify(() => fsa.mkdir(pathNew))()

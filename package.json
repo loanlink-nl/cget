@@ -15,7 +15,7 @@
   "main": "dist/cget.js",
   "types": "dist/cget.d.ts",
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build",
