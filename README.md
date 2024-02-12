@@ -1,14 +1,14 @@
-cget
-====
+# @loanlink/cget
 
-[![npm version](https://img.shields.io/npm/v/cget.svg)](https://www.npmjs.com/package/cget)
+This library is maintained since it's required by the cxml/cxsd pipeline.
+
+---
 
 `cget` is a robust streaming parallel download manager with a filesystem cache and a simple API.
 
 These docs are relevant to the new version under construction on Github, not yet published on NPM.
 
-Features
---------
+## Features
 
 - Promise-based API, returns HTTP headers and a Node.js stream with contents.
 - Filesystem cache mirrors remote hosts and their directory structure.
@@ -25,11 +25,9 @@ Features
 `cget` is perfect for downloading and caching various schema files,
 and is used in [cxsd](https://github.com/charto/cxsd#readme)
 
-Usage
-=====
+# Usage
 
-Cached downloads
-----------------
+## Cached downloads
 
 ```JavaScript
 var Cache = require('cget').Cache;
@@ -71,8 +69,7 @@ in local files, for example:
 
 The second time it prints the exact same output, but without needing a network connection.
 
-Caching arbitrary files
------------------------
+## Caching arbitrary files
 
 The `store` method supports caching a string with any URI (URL or URN) as the key:
 
@@ -84,8 +81,7 @@ cache.store('urn:x-inspire:specification:gmlas:GeographicalNames:3.0', 'Some dat
 cache.store('http://inspire.ec.europa.eu/schemas/ad/4.0', 'More data');
 ```
 
-License
-=======
+# License
 
 [The MIT License](https://raw.githubusercontent.com/charto/cget/master/LICENSE)
 
