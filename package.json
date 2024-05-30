@@ -21,7 +21,6 @@
     "build": "rimraf ./dist && tsc --build",
     "prepare": "npm run build",
     "prepublishOnly": "npm i --package-lock-only && npm run test",
-    "postpublish": "TAG=\"v$(jq -r .version package.json)\" && git commit -am \"Bumped to version $TAG\" && git tag -a $TAG -m \"Published version $TAG\" && git push origin $TAG",
     "test": "npm-run-all test:*",
     "test:jest": "jest",
     "test:clean": "rimraf cache/",
