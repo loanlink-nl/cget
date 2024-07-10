@@ -51,7 +51,7 @@
     "jest-jasmine2": "^29.7.0",
     "lodash": "^4.17.15",
     "npm-run-all2": "^6.2.0",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.0.0",
     "ts-jest": "^29.2.0",
     "typescript": "^5.5.2"
   },
