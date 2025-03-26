@@ -12,16 +12,17 @@
     "url": "https://github.com/loanlink-nl/cget/issues"
   },
   "homepage": "https://github.com/loanlink-nl/cget#readme",
+  "type": "module",
   "main": "dist/cget.js",
   "types": "dist/cget.d.ts",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc --build",
+    "build": "rimraf ./dist && tsc -p tsconfig.build.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm i --package-lock-only && npm run test",
-    "test": "npm-run-all test:*",
+    "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' npm-run-all test:*",
     "test:jest": "jest",
     "test:clean": "rimraf cache/",
     "test:original": "npm-run-all test:original:*",
@@ -40,7 +41,7 @@
   ],
   "dependencies": {
     "cwait": "^1.1.2",
-    "got": "^11.8.6",
+    "got": "^14.4.6",
     "mkdirp": "^3.0.1"
   },
   "devDependencies": {

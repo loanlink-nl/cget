@@ -1,4 +1,4 @@
-import { sanitizeUrl, sanitizePath, Address } from "./Address";
+import { sanitizeUrl, sanitizePath, Address } from "./Address.js";
 
 /*******************
  * Test sanitizeUrl

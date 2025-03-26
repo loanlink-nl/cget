@@ -11,9 +11,9 @@ import got from "got";
 
 import { PromisyClass, TaskQueue } from "cwait";
 
-import { fsa, isDir } from "./mkdirp";
+import { fsa, isDir } from "./mkdirp.js";
 import { mkdirp } from "mkdirp";
-import { Address } from "./Address";
+import { Address } from "./Address.js";
 
 // TODO: continue interrupted downloads.
 // TODO: handle redirect loops.

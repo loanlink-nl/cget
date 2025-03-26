@@ -1,5 +1,4 @@
-import { FetchOptions, Cache, CacheResult } from "./Cache";
-const path = require("path");
+import { Cache } from "./Cache.js";
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10 * 1000;
 
@@ -30,49 +29,49 @@ describe.only("Cache", () => {
     });
   });
 
-  ["https://data.un.org/WS/sdmxv21/schemas/XMLSchema.xsd"].forEach(function (
-    urlRemote
-  ) {
-    test(`cache.fetch: ${urlRemote} w/ allowLocal disabled`, async () => {
-      const cache = new Cache("cache/xsd", {
-        indexName: "_index.xsd"
+  ["https://data.un.org/WS/sdmxv21/schemas/XMLSchema.xsd"].forEach(
+    function (urlRemote) {
+      test(`cache.fetch: ${urlRemote} w/ allowLocal disabled`, async () => {
+        const cache = new Cache("cache/xsd", {
+          indexName: "_index.xsd"
+        });
+        const options = {};
+
+        const cached = await cache.fetch(urlRemote, options);
+
+        expect(typeof cached).toBe("object");
+        expect(typeof cached.address).toBe("object");
+        expect(typeof cached.headers).toBe("object");
+        expect(typeof cached.stream).toBe("object");
+        expect(cached.status).toBe(200);
       });
-      const options = {};
+    }
+  );
 
-      const cached = await cache.fetch(urlRemote, options);
+  [`file://${__dirname}/../test/input/dir-example.xsd`].forEach(
+    function (urlRemote) {
+      test(`cache.fetch: ${urlRemote} w/ allowLocal disabled`, async () => {
+        expect.assertions(2);
 
-      expect(typeof cached).toBe("object");
-      expect(typeof cached.address).toBe("object");
-      expect(typeof cached.headers).toBe("object");
-      expect(typeof cached.stream).toBe("object");
-      expect(cached.status).toBe(200);
-    });
-  });
+        const cache = new Cache("cache/xsd", {
+          indexName: "_index.xsd"
+        });
+        const options = {};
 
-  [`file://${__dirname}/../test/input/dir-example.xsd`].forEach(function (
-    urlRemote
-  ) {
-    test(`cache.fetch: ${urlRemote} w/ allowLocal disabled`, async () => {
-      expect.assertions(2);
-
-      const cache = new Cache("cache/xsd", {
-        indexName: "_index.xsd"
+        try {
+          return await cache.fetch(urlRemote, options);
+        } catch (e) {
+          const errorString = e.toString() as string;
+          const firstExpectedChunk = "Error: Access denied to url file://";
+          const lastExpectedChunk = "/cget/test/input/dir-example.xsd";
+          expect(errorString.substring(0, firstExpectedChunk.length)).toMatch(
+            firstExpectedChunk
+          );
+          expect(errorString.substring(-1 * lastExpectedChunk.length)).toMatch(
+            lastExpectedChunk
+          );
+        }
       });
-      const options = {};
-
-      try {
-        return await cache.fetch(urlRemote, options);
-      } catch (e) {
-        const errorString = e.toString() as string;
-        const firstExpectedChunk = "Error: Access denied to url file://";
-        const lastExpectedChunk = "/cget/test/input/dir-example.xsd";
-        expect(errorString.substring(0, firstExpectedChunk.length)).toMatch(
-          firstExpectedChunk
-        );
-        expect(errorString.substring(-1 * lastExpectedChunk.length)).toMatch(
-          lastExpectedChunk
-        );
-      }
-    });
-  });
+    }
+  );
 });
