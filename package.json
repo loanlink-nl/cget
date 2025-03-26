@@ -1,6 +1,6 @@
 {
   "name": "@loanlink-nl/cget",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Robust streaming parallel download manager with filesystem cache",
   "author": "Loanlink",
   "license": "MIT",
@@ -70,8 +70,5 @@
     },
     "testRegex": "(/src/.*\\.test\\.(ts|tsx|js))$",
     "testRunner": "jasmine2"
-  },
-  "publishConfig": {
-    "@loanlink-nl:registry": "https://npm.pkg.github.com/loanlink-nl"
   }
 }
