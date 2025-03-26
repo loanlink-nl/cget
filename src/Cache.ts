@@ -315,7 +315,7 @@ export class Cache {
         throw err_1;
       });
 
-      streamIn.on("end", resolveTask);
+      streamIn.on("end", () => resolveTask(undefined));
     });
     return new CacheResult(
       streamIn,
@@ -367,7 +367,7 @@ export class Cache {
             // Cached file doesn't exist.
             streamIn.on("error", reject);
 
-            streamIn.on("end", resolveTask);
+            streamIn.on("end", () => resolveTask(undefined));
           })
       )
       .then(
