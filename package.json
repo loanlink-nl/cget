@@ -39,7 +39,7 @@
     "http"
   ],
   "dependencies": {
-    "@types/node": "^20.17.27",
+    "@types/node": "^22.13.14",
     "cwait": "^1.1.2",
     "got": "^11.8.6",
     "mkdirp": "^3.0.1"
