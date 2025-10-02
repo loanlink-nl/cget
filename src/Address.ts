@@ -46,7 +46,7 @@ export class Address {
       addressURL = url.pathToFileURL(cachePath).href;
       this.isLocal = true;
     } else if (addressURI.substring(0, 5) == "file:") {
-      const match = addressURI.match(/^file:(?:\/\/)?(\.?\.?\/?.*)/);
+      const match = addressURI.match(/^file:(?:\/\/\/?)([A-Za-z]:\/.*|\.?\.?\/?.*)/);
       if (!match) {
         throw new Error(`Invalid input: "${addressURI}"`);
       }
