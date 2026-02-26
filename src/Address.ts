@@ -5,18 +5,34 @@ import * as path from "path";
 import * as url from "url";
 
 export function sanitizeUrl(urlRemote: string) {
-  var urlParts = url.parse(urlRemote, false, true);
-  var origin = urlParts.host || "";
+  try {
+    const urlObj = new URL(urlRemote);
+    var origin = urlObj.host || "";
 
-  if ((urlParts.pathname || "").charAt(0) != "/") origin += "/";
+    if ((urlObj.pathname || "").charAt(0) != "/") origin += "/";
 
-  origin += urlParts.pathname;
-  return [
-    urlParts.protocol || "http:",
-    "//",
-    url.resolve("", origin),
-    urlParts.search || ""
-  ].join("");
+    origin += urlObj.pathname;
+    return [
+      urlObj.protocol || "http:",
+      "//",
+      url.resolve("", origin),
+      urlObj.search || ""
+    ].join("");
+  } catch (e) {
+    // If URL is invalid, try to construct it with a base
+    const urlObj = new URL(urlRemote, "http://dummy");
+    var origin = urlObj.host || "";
+
+    if ((urlObj.pathname || "").charAt(0) != "/") origin += "/";
+
+    origin += urlObj.pathname;
+    return [
+      urlObj.protocol || "http:",
+      "//",
+      url.resolve("", origin),
+      urlObj.search || ""
+    ].join("");
+  }
 }
 
 /** Last line of defence to filter malicious paths. */
