@@ -4,7 +4,6 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import * as url from "url";
 import * as http from "http";
 import * as stream from "stream";
 import got from "got";
@@ -565,27 +564,29 @@ export class Cache {
   private static forceRedirect(urlRemote: string, options: FetchOptions) {
     if (!options.forceHost && !options.forcePort) return urlRemote;
 
-    var urlParts = url.parse(urlRemote);
+    const urlObj = new URL(urlRemote);
     var changed = false;
 
-    if (!urlParts.hostname) return urlRemote;
+    if (!urlObj.hostname) return urlRemote;
 
-    if (options.forceHost && urlParts.hostname != options.forceHost) {
-      urlParts.hostname = options.forceHost;
+    if (options.forceHost && urlObj.hostname != options.forceHost) {
+      urlObj.hostname = options.forceHost;
       changed = true;
     }
 
-    if (options.forcePort && urlParts.port != "" + options.forcePort) {
-      urlParts.port = "" + options.forcePort;
+    if (options.forcePort && urlObj.port != "" + options.forcePort) {
+      urlObj.port = "" + options.forcePort;
       changed = true;
     }
 
     if (!changed) return urlRemote;
 
-    urlParts.search = "?host=" + encodeURIComponent(urlParts.host || "");
-    urlParts.host = null as any;
+    const originalHost = urlObj.host;
+    urlObj.search = "?host=" + encodeURIComponent(originalHost || "");
+    // Remove the host to use the modified hostname/port
+    urlObj.host = urlObj.hostname + (urlObj.port ? ":" + urlObj.port : "");
 
-    return url.format(urlParts);
+    return urlObj.href;
   }
 
   /** Queue for limiting parallel downloads. */

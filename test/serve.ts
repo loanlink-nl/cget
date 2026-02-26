@@ -20,7 +20,6 @@ console.log(
 import { assignIn } from "lodash";
 import * as fs from "fs";
 import { fsa } from "../dist/mkdirp";
-import * as url from "url";
 import * as http from "http";
 
 import { Address, Cache } from "../dist/cget";
@@ -86,8 +85,8 @@ function checkRemoteLink(cachePath: string) {
 
 var app = http.createServer(
   (req: http.IncomingMessage, res: http.ServerResponse) => {
-    var urlParts = url.parse(req.url);
-    var args = parseArgs(urlParts.query);
+    const urlObj = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+    var args = parseArgs(urlObj.search.substring(1));
     var host = args["host"];
 
     // TODO does localhost not count as a host?
@@ -105,13 +104,12 @@ var app = http.createServer(
       return;
     }
 
-    urlParts.protocol = "http";
-    urlParts.search = null;
-    urlParts.query = null;
-    urlParts.host = host;
+    urlObj.protocol = "http";
+    urlObj.search = "";
+    urlObj.host = host;
 
     cache
-      .getCachePath(new Address(url.format(urlParts)))
+      .getCachePath(new Address(urlObj.href))
       .then((cachePath: string) =>
         checkRemoteLink(cachePath)
           .then((urlRemote: string) => {
